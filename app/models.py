@@ -69,10 +69,12 @@ def analyze_genre_popularity(df):
 def analyze_music_features_by_genre(df, feature='danceability'):
     """
     Analyzes the distribution of a specific music feature across different genres.
+
     Args:
         df: The DataFrame.
         feature: The music feature to analyze (e.g., 'danceability', 'energy', 'tempo').
-    Returns: 
+
+    Returns:
         A Plotly figure (as JSON) and an interpretation string.
     """
     feature_by_genre = df.groupby('track_genre')[feature].mean().sort_values(ascending=False)
@@ -112,8 +114,9 @@ def analyze_music_features_by_genre(df, feature='danceability'):
 def analyze_sales_correlations(df):
     """
     Analyzes correlations between music features and popularity.
+
     Returns:
-        A Plotly figure (as JSON) and an interpretation string
+        A Plotly figure (as JSON) and an interpretation string.
     """
     numerical_df = df.select_dtypes(include=['number'])
     correlation_matrix = numerical_df.corr()
