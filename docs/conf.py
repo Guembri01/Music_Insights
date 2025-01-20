@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # Project information
 project = 'Music Insights'
-author = 'Your Name'
+author = 'Biell Guembri'
 copyright = f'{datetime.now().year}, {author}'
 release = '1.0.0'
 
