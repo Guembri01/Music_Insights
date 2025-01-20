@@ -1,0 +1,6 @@
+Flask
+pandas
+datasets
+plotly
+pytest
+Flask-Caching

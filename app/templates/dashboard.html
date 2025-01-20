@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Tableau de Bord d'Analyse des Ventes de Musique</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="logo">
+                <h1>Bilel Guembri Music Insights</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('main.index') }}"><i class="fas fa-home"></i>Accueil</a></li>
+                <li><a href="#genre-analysis" class="active"><i class="fas fa-music"></i>Analyse par Genre</a></li>
+                <li><a href="#feature-analysis"><i class="fas fa-chart-line"></i>Analyse des Caractéristiques</a></li>
+                <li><a href="#tempo-analysis"><i class="fas fa-tachometer-alt"></i>Analyse du Tempo</a></li>
+                <li><a href="#energy-danceability-analysis"><i class="fas fa-fire"></i>Énergie vs Danseabilité</a></li>
+                <li><a href="#popularity-time-analysis"><i class="fas fa-chart-line"></i>Popularité au fil du temps</a></li>
+                <li><a href="#top-artists-analysis"><i class="fas fa-users"></i>Top Artistes</a></li>
+                <li><a href="#valence-popularity-analysis"><i class="fas fa-smile"></i>Valence vs Popularité</a></li>
+                <li><a href="#top-popular-tracks-analysis"><i class="fas fa-star"></i>Top 10 Pistes</a></li>
+                <li><a href="#energy-by-genre-analysis"><i class="fas fa-bolt"></i>Énergie par Genre</a></li>
+                <li><a href="#loudness-vs-energy-analysis"><i class="fas fa-volume-up"></i>Loudness vs Énergie</a></li>
+                <li><a href="#acousticness-distribution-analysis"><i class="fas fa-guitar"></i>Distribution Acousticness</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content-wrapper">
+            <div class="main-content">
+                <div class="container">
+                    <h1>Tableau de Bord</h1>
+
+                    <section id="genre-analysis" class="content-section active-section">
+                        <h2>Analyse par Genre</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="genrePopularityChartContainer">
+                                    <div id="genrePopularityChart"></div>
+                                </div>
+                                <p id="genrePopularityInterpretation" class="interpretation"></p>
+                            </div>
+
+                            <div class="card">
+                                <div class="chart-container" id="danceabilityChartContainer">
+                                    <div id="danceabilityChart"></div>
+                                </div>
+                                <p id="danceabilityInterpretation" class="interpretation"></p>
+                            </div>
+
+                            <div class="card">
+                                <div class="chart-container" id="explicitChartContainer">
+                                    <div id="explicitChart"></div>
+                                </div>
+                                <p id="explicitInterpretation" class="interpretation"></p>
+                            </div>
+
+                            <div class="card">
+                                <div class="chart-container" id="durationChartContainer">
+                                    <div id="durationChart"></div>
+                                </div>
+                                <p id="durationInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="feature-analysis" class="content-section">
+                        <h2>Analyse des Caractéristiques</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="salesCorrelationsChartContainer">
+                                    <div id="salesCorrelationsChart"></div>
+                                </div>
+                                <p id="salesCorrelationsInterpretation" class="interpretation"></p>
+                            </div>
+
+                            <div class="card">
+                                <div class="chart-container" id="heatmapChartContainer">
+                                    <div id="heatmapChart"></div>
+                                </div>
+                                <p id="heatmapInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="tempo-analysis" class="content-section">
+                        <h2>Analyse du Tempo par Genre</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="tempoChartContainer">
+                                    <div id="tempoChart"></div>
+                                </div>
+                                <p id="tempoInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="energy-danceability-analysis" class="content-section">
+                        <h2>Relation entre l'Énergie et la Danseabilité</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="energyDanceabilityChartContainer">
+                                    <div id="energyDanceabilityChart"></div>
+                                </div>
+                                <p id="energyDanceabilityInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="popularity-time-analysis" class="content-section">
+                        <h2>Popularité au fil des années</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="popularityTimeChartContainer">
+                                    <div id="popularityTimeChart"></div>
+                                </div>
+                                <p id="popularityTimeInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="top-artists-analysis" class="content-section">
+                        <h2>Top 20 des Artistes par Popularité</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="topArtistsChartContainer">
+                                    <div id="topArtistsChart"></div>
+                                </div>
+                                <p id="topArtistsInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="valence-popularity-analysis" class="content-section">
+                        <h2>Relation entre la Valence et la Popularité</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="valencePopularityChartContainer">
+                                    <div id="valencePopularityChart"></div>
+                                </div>
+                                <p id="valencePopularityInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="top-popular-tracks-analysis" class="content-section">
+                        <h2>Top 10 des pistes les plus populaires</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="topPopularTracksChartContainer">
+                                    <div id="topPopularTracksChart"></div>
+                                </div>
+                                <p id="topPopularTracksInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="energy-by-genre-analysis" class="content-section">
+                        <h2>Distribution de l'énergie par genre</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="energyByGenreChartContainer">
+                                    <div id="energyByGenreChart"></div>
+                                </div>
+                                <p id="energyByGenreInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="loudness-vs-energy-analysis" class="content-section">
+                        <h2>Relation entre Loudness et Énergie</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="loudnessVsEnergyChartContainer">
+                                    <div id="loudnessVsEnergyChart"></div>
+                                </div>
+                                <p id="loudnessVsEnergyInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="acousticness-distribution-analysis" class="content-section">
+                        <h2>Distribution de l'acousticness</h2>
+                        <div class="grid-container">
+                            <div class="card">
+                                <div class="chart-container" id="acousticnessDistributionChartContainer">
+                                    <div id="acousticnessDistributionChart"></div>
+                                </div>
+                                <p id="acousticnessDistributionInterpretation" class="interpretation"></p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© Bilel Guembri  2025 Music Insights. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Existing Charts
+        var genrePopularityData = {{ genre_popularity | safe }};
+        Plotly.newPlot('genrePopularityChart', genrePopularityData.data, genrePopularityData.layout);
+        document.getElementById("genrePopularityInterpretation").innerText = `{{ genre_pop_interpretation | safe }}`;
+
+        var danceabilityData = {{ danceability | safe }};
+        Plotly.newPlot('danceabilityChart', danceabilityData.data, danceabilityData.layout);
+        document.getElementById("danceabilityInterpretation").innerText = `{{ danceability_interpretation | safe }}`;
+
+        var salesCorrelationsData = {{ sales_correlations | safe }};
+        Plotly.newPlot('salesCorrelationsChart', salesCorrelationsData.data, salesCorrelationsData.layout);
+        document.getElementById("salesCorrelationsInterpretation").innerText = `{{ sales_correlations_interpretation | safe }}`;
+
+        var explicitData = {{ explicit | safe }};
+        Plotly.newPlot('explicitChart', explicitData.data, explicitData.layout);
+        document.getElementById("explicitInterpretation").innerText = `{{ explicit_interpretation | safe }}`;
+
+        var durationData = {{ duration | safe }};
+        Plotly.newPlot('durationChart', durationData.data, durationData.layout);
+        document.getElementById("durationInterpretation").innerText = `{{ duration_interpretation | safe }}`;
+
+        var heatmapData = {{ heatmap | safe }};
+        Plotly.newPlot('heatmapChart', heatmapData.data, heatmapData.layout);
+        document.getElementById("heatmapInterpretation").innerText = `{{ heatmap_interpretation | safe }}`;
+
+        var tempoData = {{ tempo | safe }};
+        Plotly.newPlot('tempoChart', tempoData.data, tempoData.layout);
+        document.getElementById("tempoInterpretation").innerText = `{{ tempo_interpretation | safe }}`;
+
+        var energyDanceabilityData = {{ energy_danceability | safe }};
+        Plotly.newPlot('energyDanceabilityChart', energyDanceabilityData.data, energyDanceabilityData.layout);
+        document.getElementById("energyDanceabilityInterpretation").innerText = `{{ energy_danceability_interpretation | safe }}`;
+
+        var popularityTimeData = {{ popularity_time | safe }};
+        Plotly.newPlot('popularityTimeChart', popularityTimeData.data, popularityTimeData.layout);
+        document.getElementById("popularityTimeInterpretation").innerText = `{{ popularity_time_interpretation | safe }}`;
+
+        var topArtistsData = {{ top_artists | safe }};
+        Plotly.newPlot('topArtistsChart', topArtistsData.data, topArtistsData.layout);
+        document.getElementById("topArtistsInterpretation").innerText = `{{ top_artists_interpretation | safe }}`;
+
+        var valencePopularityData = {{ valence_popularity | safe }};
+        Plotly.newPlot('valencePopularityChart', valencePopularityData.data, valencePopularityData.layout);
+        document.getElementById("valencePopularityInterpretation").innerText = `{{ valence_popularity_interpretation | safe }}`;
+
+        var topPopularTracksData = {{ top_popular_tracks | safe }};
+        Plotly.newPlot('topPopularTracksChart', topPopularTracksData.data, topPopularTracksData.layout);
+        document.getElementById("topPopularTracksInterpretation").innerText = `{{ top_popular_tracks_interpretation | safe }}`;
+
+        var energyByGenreData = {{ energy_by_genre | safe }};
+        Plotly.newPlot('energyByGenreChart', energyByGenreData.data, energyByGenreData.layout);
+        document.getElementById("energyByGenreInterpretation").innerText = `{{ energy_by_genre_interpretation | safe }}`;
+
+        var loudnessVsEnergyData = {{ loudness_vs_energy | safe }};
+        Plotly.newPlot('loudnessVsEnergyChart', loudnessVsEnergyData.data, loudnessVsEnergyData.layout);
+        document.getElementById("loudnessVsEnergyInterpretation").innerText = `{{ loudness_vs_energy_interpretation | safe }}`;
+
+        var acousticnessDistributionData = {{ acousticness_distribution | safe }};
+        Plotly.newPlot('acousticnessDistributionChart', acousticnessDistributionData.data, acousticnessDistributionData.layout);
+        document.getElementById("acousticnessDistributionInterpretation").innerText = `{{ acousticness_distribution_interpretation | safe }}`;
+
+        // Function to show the selected section and hide others
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.add('active-section');
+                } else {
+                    section.classList.remove('active-section');
+                }
+            });
+        }
+
+        // Add click event listeners to sidebar links
+        const sidebarLinks = document.querySelectorAll('.sidebar .nav-links li a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default anchor behavior
+                const sectionId = this.getAttribute('href').substring(1); // Get section id from href
+                showSection(sectionId);
+
+                // Remove active class from all links
+                sidebarLinks.forEach(link => link.classList.remove('active'));
+                // Add active class to the clicked link
+                this.classList.add('active');
+            });
+        });
+
+        // Initially show the first section
+        showSection('genre-analysis');
+    </script>
+</body>
+</html>
